@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#2c5a4c">
+<meta name="description" content="كوفي هاش: قهوة على أصولها وجلسات عائلية في الدور الثاني. نسخة تجريبية.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="كوفي هاش">
+<meta property="og:description" content="المنيو وحجز طاولات العوائل في الدور الثاني. نسخة تجريبية.">
+<meta property="og:locale" content="ar_SA">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%232c5a4c'/%3E%3Ctext x='32' y='46' font-size='40' font-weight='700' text-anchor='middle' fill='%23e6b14a' font-family='sans-serif'%3E%23%3C/text%3E%3C/svg%3E">
+<title>كوفي هاش</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Reem+Kufi:wght@500;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600&display=swap">
+<style>
+/* Layout: sticky top bar, three hash-routed pages (home / menu / book). Home = big Kufi headline over a cardamom-green band with a saffron dallah mark. */
+:root{
+  --bg:#f2f5f1; --surface:#ffffff; --fg:#15241f; --muted:#5b6b64;
+  --green:#2c5a4c; --green-ink:#ffffff; --saffron:#c98a17; --saffron-soft:#f6e7c4;
+  --line:#d5ddd8;
+  --display:'Reem Kufi','Noto Kufi Arabic',serif; --body:'IBM Plex Sans Arabic','Segoe UI',Tahoma,sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0f1a17; --surface:#16251f; --fg:#eaf1ed; --muted:#9db0a8;
+  --green:#3f7a67; --green-ink:#ffffff; --saffron:#e6b14a; --saffron-soft:#3a2f14; --line:#274037; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0f1a17; --surface:#16251f; --fg:#eaf1ed; --muted:#9db0a8;
+  --green:#3f7a67; --green-ink:#ffffff; --saffron:#e6b14a; --saffron-soft:#3a2f14; --line:#274037; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font:16px/1.75 var(--body);padding-inline:max(16px,env(safe-area-inset-left,0px)) max(16px,env(safe-area-inset-right,0px))}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+.wrap{max-width:960px;margin-inline:auto}
+.demo{background:var(--saffron);color:#1b1407;text-align:center;font-size:.85rem;font-weight:600;padding:4px 8px;margin-inline:calc(-1*max(16px,env(safe-area-inset-left,0px)))}
+html{-webkit-text-size-adjust:100%}
+body{overflow-x:hidden;margin:0}
+input,select,textarea{font-size:16px}
+h1,h2,h3{font-family:var(--display);font-weight:700;line-height:1.3;text-wrap:balance;margin:0}
+p{margin:0}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--saffron);outline-offset:2px}
+
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);border-bottom:1px solid var(--line)}
+header .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-block:10px;flex-wrap:wrap}
+.brand{font-family:var(--display);font-size:1.5rem;color:var(--green);text-decoration:none;font-weight:700}
+nav{display:flex;gap:4px}
+nav a{padding:6px 14px;border-radius:999px;text-decoration:none;font-weight:500;color:var(--muted)}
+nav a[aria-current="page"]{background:var(--green);color:var(--green-ink)}
+
+main{padding-block:28px 56px}
+.page{display:none}
+.page.on{display:block}
+
+.hero{background:var(--green);color:var(--green-ink);border-radius:18px;padding:clamp(24px,6vw,56px);display:grid;grid-template-columns:1fr auto;gap:24px;align-items:center}
+.hero h1{font-size:clamp(2rem,6vw,3.4rem)}
+.hero p{margin-top:12px;max-width:34em;opacity:.92}
+.hero .mark{width:clamp(90px,18vw,160px);color:var(--saffron)}
+.btns{display:flex;gap:10px;margin-top:22px;flex-wrap:wrap}
+.btn{display:inline-block;border:0;border-radius:10px;padding:11px 22px;font:600 1rem var(--body);cursor:pointer;text-decoration:none;background:var(--saffron);color:#1b1407}
+.btn.ghost{background:transparent;color:inherit;border:1.5px solid currentColor}
+@media(max-width:560px){.hero{grid-template-columns:1fr}.hero .mark{order:-1;width:80px}}
+
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-top:20px}
+.fact{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px 18px;min-width:0}
+.fact b{display:block;font-family:var(--display);color:var(--green);font-size:1.1rem}
+.fact span{color:var(--muted);font-size:.95rem}
+
+.sec{margin-top:40px}
+.sec h2{font-size:1.6rem;margin-bottom:6px}
+.sec .sub{color:var(--muted);margin-bottom:18px}
+.floor{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+.floor div{padding:4px 0;border-top:2px solid var(--saffron)}
+.floor h3{font-size:1.1rem;margin:10px 0 4px}
+.floor p{color:var(--muted);font-size:.95rem}
+
+.items{display:grid;gap:14px}
+.item{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:20px;display:grid;grid-template-columns:1fr auto;gap:6px 18px;min-width:0}
+.item h3{font-size:1.3rem}
+.price{font-family:var(--display);font-size:1.3rem;color:var(--saffron);white-space:nowrap}
+.item p{grid-column:1;color:var(--muted)}
+.tag{grid-column:1/-1;font-size:.85rem;color:var(--green);font-weight:600}
+.note{margin-top:16px;font-size:.9rem;color:var(--muted)}
+
+form{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:clamp(16px,4vw,28px);display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.full{grid-column:1/-1}
+@media(max-width:560px){form{grid-template-columns:1fr}}
+label{display:block;font-weight:600;margin-bottom:4px;font-size:.95rem}
+input,select,textarea{width:100%;font:1rem var(--body);color:var(--fg);background:var(--bg);border:1.5px solid var(--line);border-radius:10px;padding:10px 12px}
+textarea{min-height:84px;resize:vertical}
+.msg{border-radius:12px;padding:14px 16px;background:var(--saffron-soft);border:1px solid var(--saffron)}
+.ok{margin-top:16px}
+.list{margin-top:34px}
+.list h2{font-size:1.3rem;margin-bottom:10px}
+.tbl{overflow-x:auto}
+table{border-collapse:collapse;width:100%;min-width:560px;font-size:.95rem}
+th,td{text-align:start;padding:8px 10px;border-bottom:1px solid var(--line);font-variant-numeric:tabular-nums}
+th{color:var(--muted);font-weight:600}
+footer{border-top:1px solid var(--line);padding-block:20px;color:var(--muted);font-size:.9rem}
+footer .wrap{display:flex;gap:8px 24px;flex-wrap:wrap;justify-content:space-between}
+</style>
+
+</head>
+<body>
+<div class="demo">نسخة تجريبية: البيانات أمثلة والحجز لا يُرسل</div>
+<header><div class="wrap">
+  <a class="brand" href="#home"><span dir="ltr">#</span> هاش</a>
+  <nav aria-label="التنقل">
+    <a href="#home" data-p="home">الرئيسية</a>
+    <a href="#menu" data-p="menu">المنيو</a>
+    <a href="#book" data-p="book">حجز العوائل</a>
+  </nav>
+</div></header>
+
+<main><div class="wrap">
+
+<section id="p-home" class="page">
+  <div class="hero">
+    <div>
+      <h1>قهوة على أصولها، وجلسة تليق بالعائلة</h1>
+      <p>نحمّص ونحضّر قهوتنا من الصباح، ونخصص الدور الثاني بالكامل للعوائل: هدوء، خصوصية، وطاولات تتسع للمجلس كله.</p>
+      <div class="btns">
+        <a class="btn" href="#book">احجز طاولة عائلية</a>
+        <a class="btn ghost" href="#menu">شوف المنيو</a>
+      </div>
+    </div>
+    <svg class="mark" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M30 82h40M34 82c-8-6-12-16-10-26 2-8 8-14 16-16M66 82c8-6 12-16 10-26-2-8-8-14-16-16"/>
+      <path d="M40 40c0-8 4-14 10-14s10 6 10 14M50 26v-8M44 18h12"/>
+      <path d="M76 56c10-2 14 4 12 12"/>
+    </svg>
+  </div>
+
+  <div class="facts">
+    <div class="fact"><b>الدوام</b><span>يوميًا من ٧ صباحًا إلى ١٢ منتصف الليل</span></div>
+    <div class="fact"><b>الموقع</b><span>الرياض، حي ... (عدّل العنوان هنا)</span></div>
+    <div class="fact"><b>للتواصل</b><span dir="ltr" style="unicode-bidi:plaintext">05X XXX XXXX</span></div>
+  </div>
+
+  <div class="sec">
+    <h2>الدور الثاني للعوائل</h2>
+    <p class="sub">مدخل مستقل وصعود بالمصعد أو الدرج، وكل طاولة مصممة للجلسة الطويلة.</p>
+    <div class="floor">
+      <div><h3>طاولات مفصولة</h3><p>حواجز خشبية بين الطاولات تعطيكم خصوصية كاملة.</p></div>
+      <div><h3>ركن الأطفال</h3><p>زاوية ألعاب آمنة قريبة من الجلسات، وكراسي أطفال متوفرة.</p></div>
+      <div><h3>مصلى قريب</h3><p>مصلى نظيف ومكيّف بنفس الدور لراحتكم.</p></div>
+      <div><h3>خدمة على الطاولة</h3><p>الطلب والدفع من مكانكم بدون ما تنزلون.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="p-menu" class="page">
+  <div class="sec" style="margin-top:0">
+    <h2>المنيو</h2>
+    <p class="sub">ثلاثة أصناف نشتغل عليها كل يوم، ونجوّدها قبل ما نوسّع القائمة.</p>
+    <div class="items">
+      <article class="item">
+        <h3>دلة قهوة سعودية</h3><span class="price">٢٨ ر.س</span>
+        <p>قهوة شقراء بالهيل والزعفران، تُقدَّم بدلة صغيرة مع تمر سكري تكفي شخصين إلى ثلاثة.</p>
+        <span class="tag">الأكثر طلبًا</span>
+      </article>
+      <article class="item">
+        <h3>لاتيه التمر والقرفة</h3><span class="price">٢٢ ر.س</span>
+        <p>إسبريسو مع حليب مبخّر وصوص تمر منزلي ولمسة قرفة، يُقدَّم حارًا أو مثلجًا.</p>
+        <span class="tag">مشروب الموسم</span>
+      </article>
+      <article class="item">
+        <h3>تشيز كيك الزعفران</h3><span class="price">٢٦ ر.س</span>
+        <p>تشيز كيك كريمي بقاعدة بسكويت اللوتس ورشة فستق حلبي، يناسب القهوة المرّة.</p>
+        <span class="tag">حلى</span>
+      </article>
+    </div>
+    <p class="note">الأسعار والأصناف أمثلة، عدّلها حسب منيوك. الأسعار شاملة الضريبة.</p>
+  </div>
+</section>
+
+<section id="p-book" class="page">
+  <div class="sec" style="margin-top:0">
+    <h2>حجز طاولة عائلية</h2>
+    <p class="sub">الحجز للدور الثاني فقط. نأكد معك بالجوال خلال ساعة، والطاولة تنحفظ ١٥ دقيقة بعد الموعد.</p>
+    <form id="bf" novalidate>
+      <div><label for="name">الاسم</label><input id="name" required autocomplete="name"></div>
+      <div><label for="phone">رقم الجوال</label><input id="phone" type="tel" inputmode="tel" dir="ltr" placeholder="05XXXXXXXX" required autocomplete="tel"></div>
+      <div><label for="date">التاريخ</label><input id="date" type="date" required></div>
+      <div><label for="time">الوقت</label><select id="time"></select></div>
+      <div><label for="guests">عدد الأشخاص</label><select id="guests"></select></div>
+      <div><label for="occ">المناسبة</label>
+        <select id="occ"><option>جلسة عادية</option><option>عيد ميلاد</option><option>تجمع عائلي</option><option>خطوبة أو استقبال صغير</option></select></div>
+      <div class="full"><label for="notes">ملاحظات</label><textarea id="notes" placeholder="كرسي أطفال، كيك من برا، جلسة قريبة من المصلى..."></textarea></div>
+      <div class="full"><button class="btn" id="send" type="submit" style="background:var(--green);color:var(--green-ink)">أرسل طلب الحجز</button></div>
+    </form>
+    <div id="out" class="ok" role="status" aria-live="polite"></div>
+
+    <div id="admin" class="list" hidden>
+      <h2>طلبات الحجز (تظهر لصاحب المقهى فقط)</h2>
+      <div class="tbl"><table>
+        <thead><tr><th>الاسم</th><th>الجوال</th><th>التاريخ</th><th>الوقت</th><th>العدد</th><th>المناسبة</th><th>ملاحظات</th></tr></thead>
+        <tbody id="rows"><tr><td colspan="7">لا توجد طلبات بعد.</td></tr></tbody>
+      </table></div>
+    </div>
+  </div>
+</section>
+
+</div></main>
+
+<footer><div class="wrap">
+  <span>كوفي هاش · قهوة وعائلة</span>
+  <span>الدور الأول للجميع، والدور الثاني للعوائل</span>
+</div></footer>
+
+<script>
+(function(){
+  var pages=['home','menu','book'];
+  function route(){
+    var h=(location.hash||'#home').slice(1); if(pages.indexOf(h)<0)h='home';
+    pages.forEach(function(p){document.getElementById('p-'+p).classList.toggle('on',p===h)});
+    document.querySelectorAll('nav a').forEach(function(a){
+      if(a.dataset.p===h)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current')});
+    window.scrollTo(0,0);
+  }
+  addEventListener('hashchange',route); route();
+
+  // form options
+  var t=document.getElementById('time'), g=document.getElementById('guests'), d=document.getElementById('date');
+  for(var m=16*60;m<=23*60;m+=30){
+    var hh=Math.floor(m/60),mm=m%60,h12=hh>12?hh-12:hh;
+    var o=document.createElement('option'); o.value=('0'+hh).slice(-2)+':'+('0'+mm).slice(-2);
+    o.textContent=h12+':'+('0'+mm).slice(-2)+(hh>=12?' مساءً':' ظهرًا'); t.appendChild(o);
+  }
+  for(var n=2;n<=14;n++){var o2=document.createElement('option');o2.value=n;o2.textContent=n+' أشخاص';g.appendChild(o2)}
+  var now=new Date(); d.min=now.getFullYear()+'-'+('0'+(now.getMonth()+1)).slice(-2)+'-'+('0'+now.getDate()).slice(-2); d.value=d.min;
+
+  var out=document.getElementById('out'), db=null;
+  function say(txt){out.innerHTML='';var s=document.createElement('div');s.className='msg';s.textContent=txt;out.appendChild(s)}
+
+  document.getElementById('bf').addEventListener('submit',function(e){
+    e.preventDefault();
+    var v=function(id){return document.getElementById(id).value.trim()};
+    if(!v('name')||!/^[0-9+\s]{9,15}$/.test(v('phone'))||!v('date')){say('اكتب الاسم ورقم جوال صحيح والتاريخ ثم أرسل الطلب.');return}
+    if(!db){say('نسخة تجريبية: الطلب لم يُرسل لأي جهة. اربط النموذج بخدمة حجز أو واتساب عند النشر الفعلي.');return}
+    var btn=document.getElementById('send'); btn.disabled=true;
+    var ref='H'+Math.random().toString(36).slice(2,7).toUpperCase();
+    var req={ref:ref,name:v('name'),phone:v('phone'),date:v('date'),time:v('time'),
+      guests:Number(v('guests')),occasion:v('occ'),notes:v('notes'),createdAt:Date.now()};
+    claude.use('user').then(function(u){return u.id()}).then(function(id){
+      var doc=db.collection('bookings').doc(id);
+      return doc.get().then(function(sn){
+        var prev=(sn.exists&&sn.data().requests)||[];
+        return doc.set({requests:prev.concat([req]).slice(-20),updatedAt:Date.now()});
+      });
+    }).then(function(){
+      say('وصلنا طلبك يا '+v('name')+'. رقم الطلب '+ref+'. بنتواصل معك على الجوال خلال ساعة لتأكيد الحجز.');
+      document.getElementById('bf').reset(); d.value=d.min;
+    }).catch(function(){say('تعذر إرسال الطلب. جرّب مرة ثانية أو تواصل معنا بالجوال.')})
+      .then(function(){btn.disabled=false});
+  });
+
+  // data + owner view
+  if(window.claude&&claude.use){
+    claude.use('db').then(function(x){
+      db=x; if(!db)return;
+      return claude.use('user').then(function(u){
+        if(!(u&&u.canEdit&&u.canEdit()))return;
+        document.getElementById('admin').hidden=false;
+        db.collection('bookings').onSnapshot(function(sn){
+          var all=[]; sn.docs.forEach(function(doc){((doc.data()||{}).requests||[]).forEach(function(r){all.push(r)})});
+          all.sort(function(a,b){return b.createdAt-a.createdAt});
+          var tb=document.getElementById('rows'); tb.innerHTML='';
+          if(!all.length){tb.innerHTML='<tr><td colspan="7">لا توجد طلبات بعد.</td></tr>';return}
+          all.forEach(function(r){
+            var tr=document.createElement('tr');
+            [r.name,r.phone,r.date,r.time,r.guests,r.occasion,r.notes||'-'].forEach(function(c){
+              var td=document.createElement('td'); td.textContent=c; tr.appendChild(td)});
+            tb.appendChild(tr);
+          });
+        });
+      });
+    }).catch(function(){});
+  }
+})();
+</script>
+
+</body>
+</html>
